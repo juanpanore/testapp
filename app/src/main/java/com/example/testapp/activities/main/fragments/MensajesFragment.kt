@@ -233,12 +233,14 @@ class MensajesFragment : Fragment() {
 
                     println("Termino de llenar lista de mensajes")
                 }
-                mensajesList.addAll(db.mensajeDAO().getAll())
-                mensajesList.forEach { println("mensajes en db $it") }
+
+
 
 
             }
         }
+        mensajesList.addAll(db.mensajeDAO().getAll())
+        mensajesList.forEach { println("mensajes en db $it") }
     }
 
 
