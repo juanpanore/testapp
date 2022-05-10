@@ -3,26 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/framentMensajes">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.testapp.FirstFragment"
+        android:id="@+id/framentMensajes"
+        android:name="com.example.testapp.activities.main.fragments.MensajesFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first" >
+        tools:layout="@layout/fragment_mensajes" >
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_Mensajes_to_MensajeNuevo"
+            app:destination="@id/fragmentRespuestaMensajes" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.testapp.SecondFragment"
+        android:id="@+id/fragmentRespuestaMensajes"
+        android:name="com.example.testapp.activities.main.fragments.MensajeNuevoFragment"
         android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second" >
+        tools:layout="@layout/fragment_respuesta_mensajes" >
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/framentMensajes" />
     </fragment>
 </navigation>

@@ -1,4 +1,4 @@
-package com.example.testapp
+package com.example.testapp.activities.main
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
@@ -9,6 +9,8 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import androidx.fragment.app.FragmentActivity
+import com.example.testapp.R
 import com.example.testapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -36,7 +38,14 @@ class MainActivity : AppCompatActivity() {
             Snackbar.make(view, "No se encontraron resultados", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+        binding.nuevoMensaje.setOnClickListener {
+            navController.navigate(R.id.action_Mensajes_to_MensajeNuevo)
+            println("Ingresando al segundo fragmento")
+
+        }
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
