@@ -12,6 +12,7 @@ import android.view.MenuItem
 import androidx.fragment.app.FragmentActivity
 import com.example.testapp.R
 import com.example.testapp.databinding.ActivityMainBinding
+import com.google.firebase.FirebaseApp
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,7 +23,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
 
         setSupportActionBar(binding.toolbar)
 
@@ -43,6 +43,8 @@ class MainActivity : AppCompatActivity() {
             println("Ingresando al segundo fragmento")
 
         }
+        FirebaseApp.initializeApp(this);
+
     }
 
 

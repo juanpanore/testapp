@@ -13,6 +13,7 @@ dependencyResolutionManagement {
         mavenCentral()
         jcenter()
     }
+
 }
 rootProject.name = "testapp"
 include ':app'

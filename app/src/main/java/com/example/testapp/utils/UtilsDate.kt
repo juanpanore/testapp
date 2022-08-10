@@ -12,4 +12,6 @@ class UtilsDate (private val date: Date) {
         //return the formatted date string
           return dateFormatter.format(date)
     }
+
+
 }
