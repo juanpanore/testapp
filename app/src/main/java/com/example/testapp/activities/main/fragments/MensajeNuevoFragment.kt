@@ -34,8 +34,6 @@ class MensajeNuevoFragment : Fragment() {
     private val db = Firebase.firestore
     private val mensajes_collection = "mensajes_data"
 
-
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -81,7 +79,7 @@ class MensajeNuevoFragment : Fragment() {
                             .addOnSuccessListener { documentReference ->
                                 Log.d(TAG, "DocumentSnapshot added with ID: ${documentReference.id}")
                                 try {
-                                    Intent(context, DetalleMensajeActivity::class.java).apply {
+                                        Intent(context, DetalleMensajeActivity::class.java).apply {
                                         putExtra("from", mensaje.emailFrom)
                                         putExtra("title", mensaje.title)
                                         putExtra("body", mensaje.body)

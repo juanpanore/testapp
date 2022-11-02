@@ -1,16 +1,27 @@
 package com.example.testapp.activities.main.fragments
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.ContentValues.TAG
+
+import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.content.IntentSender
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+
+
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Database
+import com.example.testapp.R
+
 import com.example.testapp.activities.detallemensaje.DetalleMensajeActivity
 import com.example.testapp.activities.main.adapters.MensajesAdapterBasic
 import com.example.testapp.model.Mensaje
@@ -24,7 +35,6 @@ import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
-import java.util.*
 import kotlin.collections.ArrayList
 
 
@@ -34,7 +44,9 @@ import kotlin.collections.ArrayList
 class MensajesFragment : Fragment() {
 
     private var _binding: FragmentMensajesBinding? = null
-
+    private val channelID ="channelID"
+    private val channelName ="channelName"
+    private val notificID = 0
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
@@ -51,6 +63,7 @@ class MensajesFragment : Fragment() {
 
         _binding = FragmentMensajesBinding.inflate(inflater, container, false)
         println("estoy creando la vista")
+        createNotificationChannel()
 
         return binding.root
 
@@ -76,6 +89,18 @@ class MensajesFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    fun createNotificationChannel(){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+                val importance = NotificationManager.IMPORTANCE_HIGH
+                val channel = NotificationChannel(channelID,channelName, importance).apply {
+                  lightColor = Color.BLUE
+                  enableLights(true)
+                }
+                val notificationManager = context?.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+                notificationManager.createNotificationChannel(channel)
+        }
     }
 
     fun recyclerViewBasic() {
@@ -133,7 +158,28 @@ class MensajesFragment : Fragment() {
 
                         db.mensajeDAO().insertAll(*mensajes)
                         mensajesList.addAll(db.mensajeDAO().getAll())
-                        mensajesList.forEach { println("mensajes en db $it") }
+
+                        val notificacion= context?.let { it ->
+                            NotificationCompat.Builder(it,channelID).also{
+                                for (m in mensajesList){
+                                    it.setContentTitle(m.emailFrom)
+                                    it.setContentText(m.title)
+                                    it.setSmallIcon(R.drawable.ic_message)
+                                    it.priority = NotificationCompat.PRIORITY_HIGH
+                                }
+                            }.build()
+                        }
+                        if(mensajesList.isNotEmpty()){
+                            if (notificacion != null) {
+                                context?.let { it1 ->
+                                    NotificationManagerCompat.from(
+                                        it1
+                                    )
+                                }?.notify(notificID, notificacion)
+                            }
+                        }
+
+
                     }
                     .addOnFailureListener { exception ->
                         Log.w(TAG, "Error getting documents: ", exception)
