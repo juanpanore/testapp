@@ -1,6 +1,6 @@
 
 # Introduction 
-Aplicación para recopilar imágenes de firmas que realizan los pacientes en su día a día, con el fin de tener una base de datos con dichas imágenes para posteriormente analizar patrones usando Machine Learning para generar un posible diagnóstico.
+Aplicación test de android
 
 # Getting Started
 Aplicacion android que implementara las siguientes tecnologias:
